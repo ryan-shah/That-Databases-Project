@@ -17,7 +17,7 @@ if($pos == "customer") {
 }
 $result = $conn->query($q);
 if($result->num_rows > 0) {
-	header("Location: /main.html?user=".uname."&pos=".pos);
+	header("Location: /main.php?user=".$uname."&pos=".$pos);
 	die();
 } else {
 	echo "LOGIN FAILED<br>";
