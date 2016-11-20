@@ -9,7 +9,7 @@ if($conn->connect_error) {
 
 $uname = htmlspecialchars($_GET["user"]);
 $pword = htmlspecialchars($_GET["pword"]);
-$q = "INSERT INTO user (uname, pw) VALUES (\"".$uname."\", \"".$pword."\");";
+$q = "INSERT INTO customer (cid, pass) VALUES (\"".$uname."\", \"".$pword."\");";
 $result = $conn->query($q);
 //echo $q."<br>";
 echo "Account Created with username: ".$uname;

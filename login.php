@@ -9,10 +9,15 @@ if($conn->connect_error) {
 
 $uname = htmlspecialchars($_GET["user"]);
 $pword = htmlspecialchars($_GET["pword"]);
-$q = "SELECT * FROM user WHERE uname=\"".$uname."\" AND pw=\"".$pword."\";";
+$pos = htmlspecialchars($_GET["position"]);
+if($pos == "customer") {
+	$q = "SELECT * FROM customer WHERE cid=\"".$uname."\" AND pass=\"".$pword."\";";
+} else {
+	$q = "SELECT * FROM staff WHERE sid=\"".$uname."\" AND pass=\"".$pword."\";";
+}
 $result = $conn->query($q);
 if($result->num_rows > 0) {
-	header("Location: /main.html?user=".uname."&pword=".pword);
+	header("Location: /main.html?user=".uname."&pos=".pos);
 	die();
 } else {
 	echo "LOGIN FAILED<br>";
