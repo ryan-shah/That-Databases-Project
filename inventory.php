@@ -5,7 +5,7 @@
 	<head>
 
 		<?php
-			$servername = "rash222.netlab.uky.edu";
+			$servername = "rash227.netlab.uky.edu";
 			$username = "root";
 			$password = $username;
 
@@ -53,7 +53,7 @@
 				$query = "UPDATE merch SET quantity = ".$_POST["qty"]." price = ".$_POST["price"]. "WHERE mid = '".$_POST['item'];
 				$resp = $conn->query($query);
 
-				echo "<p>Updated item entry.</p>"
+				echo "<p>Updated item entry.</p>";
 			}
 
 			else {
