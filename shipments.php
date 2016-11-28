@@ -61,16 +61,14 @@
 						$update_result = $conn->query($update_query);
 					}
 				}
-			}
-
-			echo "<p>Orders shipped.</p>"
-
-			else {
+				echo "<p>Orders shipped.</p>";
+			} else {
 		?>
 
 		<div class="pending_shipments">Pending Shipments</div>
 
 		<div class="shipments_table">
+		<br><br><br>
 			<?php
 				$query = "SELECT mid, quantity, totalPrice FROM orders";
 				$result = $conn->query($query);
@@ -78,11 +76,11 @@
 
 				echo "<form action=\"./shipments.php\" method=\"POST\">";
 				echo "<input type=\"submit\" value=\"Ship\">";
-				echo "</form>"
+				echo "</form>";
 				echo "<table style=\"border: 1px solid black; border-spacing: 5px\"";
 				echo "<tr>";
 
-				foreach($attribute as $heading) {
+				foreach($attributes as $heading) {
 					echo "<th>" . $heading . "</th>";
 				}
 				echo "</tr>";
@@ -92,7 +90,7 @@
 					echo "<tr>";
 					echo "<td>" . $row['mid'] . "</td>";
 					echo "<td>" . $row['quantity'] . "</td>";
-					echo "<td>" . $row['price'] . "</td>";
+					echo "<td>" . $row['totalPrice'] . "</td>";
 					echo "</tr>";
 				}
 

@@ -53,7 +53,7 @@
 				$query = "UPDATE merch SET quantity = ".$_POST["qty"]." price = ".$_POST["price"]. "WHERE mid = '".$_POST['item'];
 				$resp = $conn->query($query);
 
-				echo "<p>Updated item entry.</p>"
+				echo "<p>Updated item entry.</p>";
 			}
 
 			else {
