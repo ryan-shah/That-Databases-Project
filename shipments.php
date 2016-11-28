@@ -75,7 +75,7 @@
 				$attributes = array('mid','quantity','totalPrice');
 
 				echo "<form action=\"./shipments.php\" method=\"POST\">";
-				echo "<input type=\"submit\" value=\"Ship\">";
+				echo "<input type=\"submit\" value=\"Ship\" name=\"Ship\">";
 				echo "</form>";
 				echo "<table style=\"border: 1px solid black; border-spacing: 5px\"";
 				echo "<tr>";
