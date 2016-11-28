@@ -17,8 +17,13 @@ if($pos == "customer") {
 }
 $result = $conn->query($q);
 if($result->num_rows > 0) {
-	header("Location: /main.php?user=".$uname."&pos=".$pos);
-	die();
+	if($pos == "customer") {
+		header("Location: /main.php?user=".$uname."&pos=".$pos);
+		die();
+	} else {
+		header("Location: /shipments.php");
+		die();
+	}
 } else {
 	echo "LOGIN FAILED<br>";
 	echo "go to <a href=\"/createaccount.html\">here</a> to create an account<br>";
