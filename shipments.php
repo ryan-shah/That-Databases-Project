@@ -4,7 +4,7 @@
 
 	<head>
 		<?php
-			$servername = "rash222.netlab.uky.edu";
+			$servername = "rash227.netlab.uky.edu";
 			$username = "root";
 			$password = $username;
 
