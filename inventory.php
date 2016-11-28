@@ -60,13 +60,13 @@
 
 		?>
 
-
-		<div class="inventory">Inventory</div>
-		<input type="text" name="item" value="Item">
-		<input type="text" name="qty" value = "Value">
-		<input type="text" name="price" value = "Price">
-		<input type="submit" method="POST" value="Submit">
-
+		<form method="POST">
+			<div class="inventory">Inventory</div>
+			<input type="text" name="item" value="Item">
+			<input type="text" name="qty" value = "Value">
+			<input type="text" name="price" value = "Price">
+			<input type="submit" method="POST" value="Submit">
+		</form>
 		<?php } ?>
 
 		<div class="user_info">

@@ -104,7 +104,7 @@
 
 		<div class="user_info">
 			Hello, user<br>
-			<a href="./inventory.html">Inventory</a><br>
+			<a href="./inventory.php">Inventory</a><br>
 			<a href="./index.html">Logout</a>
 		</div>
 
