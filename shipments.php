@@ -74,7 +74,7 @@
 				$result = $conn->query($query);
 				$attributes = array('mid','quantity','totalPrice');
 
-				echo "<form action=\"./shipments.php\" method=\"GET\">";
+				echo "<form action=\"/shipments.php\" method=\"GET\">";
 				echo "<input type=\"submit\" value=\"Ship\" name=\"Ship_Order\">";
 				echo "</form>";
 				echo "<table style=\"border: 1px solid black; border-spacing: 5px\"";
