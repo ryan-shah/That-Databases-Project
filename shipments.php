@@ -47,7 +47,7 @@
 	<body>
 
 		<?php 
-			if(!empty($_POST)){ 
+			if(!empty($_GET)){ 
 				$query = "SELECT mid, quantity, totalPrice FROM orders WHERE status = 'pending'";
 				$result = $conn->query($query);
 
@@ -74,7 +74,7 @@
 				$result = $conn->query($query);
 				$attributes = array('mid','quantity','totalPrice');
 
-				echo "<form method=\"POST\">";
+				echo "<form action=\"./shipments.php\" method=\"GET\">";
 				echo "<input type=\"submit\" value=\"Ship\" name=\"Ship_Order\">";
 				echo "</form>";
 				echo "<table style=\"border: 1px solid black; border-spacing: 5px\"";
