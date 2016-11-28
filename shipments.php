@@ -47,7 +47,7 @@
 	<body>
 
 		<?php 
-			if(!empty($_GET)){ 
+			if(isset($_GET["Ship_Order"])){ 
 				$query = "SELECT mid, quantity, totalPrice FROM orders WHERE status = 'pending'";
 				$result = $conn->query($query);
 
