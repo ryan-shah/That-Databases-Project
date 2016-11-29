@@ -50,7 +50,11 @@
 		<?php
 	
 			if(isset($_POST["item"])){
-				$query = "UPDATE merch SET quantity = ".$_POST["qty"]." price = ".$_POST["price"]. "WHERE mid = '".$_POST['item'];
+				echo $_POST["item"]."<br>".$_POST["qty"]."<br>";
+				$query = "UPDATE merch SET quantity = ".$_POST["qty"]." WHERE mid = '".$_POST['item']."'";
+				$resp = $conn->query($query);
+
+				$query = "UPDATE merch SET price = ".$_POST["price"]." WHERE mid = '".$_POST['item']."'";
 				$resp = $conn->query($query);
 
 				echo "<p>Updated item entry.</p>";
@@ -61,10 +65,28 @@
 		?>
 
 		<form method="POST">
+
+			<?php
+				$query = "SELECT mid, quantity FROM merch";
+				$resp = $conn->query($query);
+
+				echo "<table>";
+				while($row = $resp->fetch_assoc()){
+					echo "<tr>";
+					echo "<td>" . $row['mid'] . "</td>";
+					echo "<td>" . $row['quantity'] . "</td>";
+					echo "</tr>";
+				}
+
+				echo "</table>";
+				mysqli_free_result($result);
+	
+			?>
+
 			<div class="inventory">Inventory</div>
 			<input type="text" name="item" value="Item">
-			<input type="text" name="qty" value = "Value">
-			<input type="text" name="price" value = "Price">
+			<input type="number" name="qty" value = "Quantity">
+			<input type="number" name="price" value = "Price">
 			<input type="submit" method="POST" value="Submit">
 		</form>
 		<?php } ?>
