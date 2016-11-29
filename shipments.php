@@ -53,6 +53,7 @@
 
 				$stock_query = "SELECT mid, quantity FROM merch WHERE merch.mid IN orders";
 				$stock_result = $conn->query($stock_query);
+				echo $stock_result;
 
 				while($row = $result->fetch_assoc()){
 					$item = $stock_result->fetch_assoc();
