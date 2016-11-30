@@ -49,15 +49,23 @@
 	<body>
 		<?php
 	
-			if(isset($_POST["item"])){
+			if(isset($_POST["item"]) and isset($_POST["qty"]) and isset($_POST["price"])){
 				echo $_POST["item"]."<br>".$_POST["qty"]."<br>";
-				$query = "UPDATE merch SET quantity = ".$_POST["qty"]." WHERE mid = '".$_POST['item']."'";
+
+				$query = "SELECT '" . $_POST["item"] . "' FROM merch";
 				$resp = $conn->query($query);
 
-				$query = "UPDATE merch SET price = ".$_POST["price"]." WHERE mid = '".$_POST['item']."'";
-				$resp = $conn->query($query);
-
-				echo "<p>Updated item entry.</p>";
+				if($resp->num_rows === 0){
+					$query = "UPDATE merch SET quantity =" . $_POST["qty"] . ", price = ".$_POST["price"]. " WHERE mid = '".$_POST["item"]."'";
+					$conn->query($query);
+					echo "<p>Updated item entry.</p>";
+				}
+				else {
+					$query = "INSERT INTO merch (mid, quantity, price) VALUES ('". $_POST["item"]. "'," . $_POST["qty"]. ",".$_POST["price"].")";
+					$conn->query($query);
+					echo "<p>Added item.</p>";
+				}
+					echo "<a href = './inventory.php'>Back to inventory.</a>";
 			}
 
 			else {
@@ -79,7 +87,6 @@
 				}
 
 				echo "</table>";
-				mysqli_free_result($result);
 	
 			?>
 

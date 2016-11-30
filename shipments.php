@@ -1,5 +1,9 @@
 <!DOCTYPE html>
+<?php
+     error_reporting(E_ALL);
+	      ini_set('display_errors', 1);
 
+		  ?>
 <html>
 
 	<head>
@@ -47,22 +51,27 @@
 	<body>
 
 		<?php 
-			if(isset($_GET["Ship_Order"])){ 
-				$query = "SELECT mid, quantity, totalPrice FROM orders WHERE status = 'pending'";
+			if(isset($_GET['Ship_Order'])){ 
+				$query = "SELECT mid, quantity, totalPrice FROM orders WHERE status = 'pending';";
 				$result = $conn->query($query);
-
-				$stock_query = "SELECT mid, quantity FROM merch WHERE merch.mid IN orders";
-				$stock_result = $conn->query($stock_query);
-				echo $stock_result;
+				
 
 				while($row = $result->fetch_assoc()){
+
+					$stock_query = "SELECT quantity FROM merch WHERE mid = '".$row["mid"]."'";	
+					$stock_result = $conn->query($stock_query);
 					$item = $stock_result->fetch_assoc();
+					echo $row["quantity"] . " and " . $item["quantity"] . "<br>";
 					if($item["quantity"] > $row["quantity"]){
-						$update_query = "UPDATE merch SET quantity = ". $item["quantity"] - $row["quantity"] ."WHERE merch.mid=\"". $item["mid"]."\"; UPDATE orders SET status = 'shipped' WHERE status = 'pending'";
+						$new_quantity = $item["quantity"] - $row["quantity"];
+						$update_query = "UPDATE merch SET quantity = ". $new_quantity ." WHERE mid='". $row["mid"]."'";
+						$update_result = $conn->query($update_query);
+						$update_query = "UPDATE orders SET status = 'shipped' WHERE mid='". $row["mid"]."'";
 						$update_result = $conn->query($update_query);
 					}
 				}
-				echo "<p>Orders shipped.</p>";
+				echo "<p>Orders shipped.</p><br>";
+				echo "<a href=\"./shipments.php\"> Back to shipments </a>";
 			} else {
 		?>
 
@@ -71,11 +80,11 @@
 		<div class="shipments_table">
 		<br><br><br>
 			<?php
-				$query = "SELECT mid, quantity, totalPrice FROM orders";
+				$query = "SELECT mid, quantity, totalPrice FROM orders WHERE status = 'pending'";
 				$result = $conn->query($query);
 				$attributes = array('mid','quantity','totalPrice');
 
-				echo "<form action=\"/shipments.php\" method=\"GET\">";
+				echo "<form action=\"./shipments.php\" method=\"GET\">";
 				echo "<input type=\"submit\" value=\"Ship\" name=\"Ship_Order\">";
 				echo "</form>";
 				echo "<table style=\"border: 1px solid black; border-spacing: 5px\"";
