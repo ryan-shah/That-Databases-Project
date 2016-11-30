@@ -52,10 +52,10 @@
 			if(isset($_POST["item"]) and isset($_POST["qty"]) and isset($_POST["price"])){
 				echo $_POST["item"]."<br>".$_POST["qty"]."<br>";
 
-				$query = "SELECT '" . $_POST["item"] . "' FROM merch";
+				$query = "SELECT mid FROM merch WHERE mid = '" . $_POST["item"] . "'" ;
 				$resp = $conn->query($query);
-
-				if($resp->num_rows === 0){
+				echo $resp->num_rows;
+				if($resp->num_rows != 0){
 					$query = "UPDATE merch SET quantity =" . $_POST["qty"] . ", price = ".$_POST["price"]. " WHERE mid = '".$_POST["item"]."'";
 					$conn->query($query);
 					echo "<p>Updated item entry.</p>";
