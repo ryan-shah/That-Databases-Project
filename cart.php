@@ -6,11 +6,11 @@
 <?php
 //insert into orders values (uuid(), 'test', 'apples', 'incart', CURDATE(), 3, 2);
 $conn = new mysqli('rash227.netlab.uky.edu', 'root', 'root','PROJECT');
-$uname = htmlspecialchars($_GET["user"]);
-$pos = htmlspecialchars($_GET["pos"]);
+$uname = htmlspecialchars($_POST["user"]);
+$pos = htmlspecialchars($_POST["pos"]);
 if (isset($_GET["item"])) {
-	$item = htmlspecialchars($_GET["item"]);
-	$amount = htmlspecialchars($_GET["amount"]);
+	$item = htmlspecialchars($_POST["item"]);
+	$amount = htmlspecialchars($_POST["amount"]);
 	$q = "select price, discount from merch where mid=\"".$item."\";";
 	//echo $q."<br>";
 	$result = $conn->query($q);
@@ -44,9 +44,10 @@ Your cart: <br>
 	echo "</table>";
 	echo "your total = $".$total;
 ?>
-<form method=GET action=checkout.php>
+<form method=POST action=checkout.php>
 	<?php
 		echo "<input type=hidden name=user value=".$uname.">";
+		echo "<a href='./main.php'>Back to main page</a>"
 	?>
 	<input type=submit value=Checkout>
 </form>
