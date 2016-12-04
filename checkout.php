@@ -4,8 +4,9 @@
 <body>
 
 <?php
+session_start();
 $conn = new mysqli('rash227.netlab.uky.edu', 'root', 'root','PROJECT');
-$uname = htmlspecialchars($_GET["user"]);
+$uname = $_SESSION['username'];
 $q = "select oid, mid, quantity from orders where cid=\"".$uname."\" and status=\"incart\";";
 $result = $conn->query($q);
 while ($row = $result->fetch_assoc()) {
@@ -28,7 +29,7 @@ while ($row = $result->fetch_assoc()) {
 ?>
 <h1>checkout complete</h1>
 <?php
-	echo "<a href=/main.php?user=".$uname."&pos=customer>Return to the main page</a>";
+	echo "<a href=/main.php>Return to the main page</a>";
 ?>
 </body>
 </html>

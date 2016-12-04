@@ -5,6 +5,8 @@
 	<head>
 
 		<?php
+			session_start();
+//			$_SESSION['position']='staff';
 			$servername = "rash227.netlab.uky.edu";
 			$username = "root";
 			$password = $username;
@@ -47,6 +49,11 @@
 	</head>
 
 	<body>
+		<?php if($_SESSION["position"] != "staff" and $_SESSION["position"] != "manager"){
+				echo "Never should have come here!";
+			} else {
+		?>
+
 		<?php
 	
 			if(isset($_POST["item"]) and isset($_POST["qty"]) and isset($_POST["price"])){
@@ -99,11 +106,15 @@
 		<?php } ?>
 
 		<div class="user_info">
-			Hello, user<br>
-			<a href="./shipments.php">Shipments</a><br>
+			Hello, <?php echo $_SESSION['username']?><br>
 			<a href="./index.html">Logout</a>
+			<?php
+			if($_SESSION["position"] === "staff" or $_SESSION["position"] === "manager") {
+			echo "<a href='./shipments.php'>Shipments</a><br>";
+			}
+			?>
 		</div>
-
+	<?php } ?>
 	</body>
 
 </html>

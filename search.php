@@ -1,4 +1,5 @@
 <?php
+session_start();
 $conn = new mysqli('rash227.netlab.uky.edu', 'root', 'root','PROJECT');
 $uname = htmlspecialchars($_GET["user"]);
 $pos = htmlspecialchars($_GET["pos"]);
@@ -15,7 +16,7 @@ $conn = new mysqli('rash227.netlab.uky.edu', 'root', 'root','PROJECT');
 $uname = htmlspecialchars($_GET["user"]);
 $pos = htmlspecialchars($_GET["pos"]);
 $search = htmlspecialchars($_GET["search"]);
-$q = "select * from merch where mid=\"".$search."\";";
+$q = "select * from merch where mid =\"".$search."\";";
 $result = $conn->query($q);
 if($result->num_rows > 0) {
 	$vals = $result->fetch_assoc();

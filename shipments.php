@@ -1,20 +1,23 @@
 <!DOCTYPE html>
 <?php
-     error_reporting(E_ALL);
-	      ini_set('display_errors', 1);
+    error_reporting(E_ALL);
+	ini_set('display_errors', 1);
 
-		  ?>
+?>
 <html>
 
 	<head>
 		<?php
+			session_start();
+//			$_SESSION['position'] = 'staff';
 			$servername = "rash227.netlab.uky.edu";
 			$username = "root";
 			$password = $username;
 
 			$conn = new mysqli($servername, $username, $password, 'PROJECT');
-		?>		
-		
+		?>
+
+				
 		<title>Shipments</title>
 
 		<style type="text/css">
@@ -49,26 +52,27 @@
 	</head>
 
 	<body>
+		<?php if($_SESSION["position"] != "staff" and $_SESSION["position"] != "manager"){
+				echo "Never should have come here!";
+			} else {
+		?>
 
 		<?php 
-			if(isset($_GET['Ship_Order'])){ 
-				$query = "SELECT mid, quantity, totalPrice FROM orders WHERE status = 'pending';";
+			if(isset($_POST['Ship_Order'])){ 
+				$things_to_ship = "";
+				foreach($_POST as $i){
+					$things_to_ship .= " oid = '".$i."' OR ";
+				}
+				$things_to_ship .= '0';
+
+				$query = "SELECT oid, mid, quantity, totalPrice FROM orders WHERE status = 'pending' AND (".$things_to_ship.");";
 				$result = $conn->query($query);
 				
 
 				while($row = $result->fetch_assoc()){
-
-					$stock_query = "SELECT quantity FROM merch WHERE mid = '".$row["mid"]."'";	
-					$stock_result = $conn->query($stock_query);
-					$item = $stock_result->fetch_assoc();
-					echo $row["quantity"] . " and " . $item["quantity"] . "<br>";
-					if($item["quantity"] > $row["quantity"]){
-						$new_quantity = $item["quantity"] - $row["quantity"];
-						$update_query = "UPDATE merch SET quantity = ". $new_quantity ." WHERE mid='". $row["mid"]."'";
-						$update_result = $conn->query($update_query);
-						$update_query = "UPDATE orders SET status = 'shipped' WHERE mid='". $row["mid"]."'";
-						$update_result = $conn->query($update_query);
-					}
+					$update_query = "UPDATE orders SET status = 'shipped' WHERE oid='". $row["oid"]."'";
+					$update_result = $conn->query($update_query);
+					
 				}
 				echo "<p>Orders shipped.</p><br>";
 				echo "<a href=\"./shipments.php\"> Back to shipments </a>";
@@ -80,19 +84,19 @@
 		<div class="shipments_table">
 		<br><br><br>
 			<?php
-				$query = "SELECT mid, quantity, totalPrice FROM orders WHERE status = 'pending'";
+				$query = "SELECT oid, mid, quantity, cid, totalPrice FROM orders WHERE status = 'pending'";
 				$result = $conn->query($query);
-				$attributes = array('mid','quantity','totalPrice');
+				$attributes = array('mid','quantity', 'cid','totalPrice');
 
-				echo "<form action=\"./shipments.php\" method=\"GET\">";
+				echo "<form action=\"./shipments.php\" method=\"POST\">";
 				echo "<input type=\"submit\" value=\"Ship\" name=\"Ship_Order\">";
-				echo "</form>";
 				echo "<table style=\"border: 1px solid black; border-spacing: 5px\"";
 				echo "<tr>";
 
 				foreach($attributes as $heading) {
 					echo "<th>" . $heading . "</th>";
 				}
+				echo "<th> Ship?</th>";
 				echo "</tr>";
 
 				while($row = $result->fetch_assoc()){
@@ -100,11 +104,14 @@
 					echo "<tr>";
 					echo "<td>" . $row['mid'] . "</td>";
 					echo "<td>" . $row['quantity'] . "</td>";
+					echo "<td>" . $row['cid'] . "</td>";
 					echo "<td>" . $row['totalPrice'] . "</td>";
+					echo "<td> <input type='checkbox' name='".$row['oid']."' value='".$row['oid']."'></td>";
 					echo "</tr>";
 				}
 
 				echo "</table>";
+				echo "</form>";
 				mysqli_free_result($result);
 	
 			?>
@@ -113,11 +120,11 @@
 		<?php } ?>
 
 		<div class="user_info">
-			Hello, user<br>
+			Hello, <?php echo $_SESSION['username'];?><br>
 			<a href="./inventory.php">Inventory</a><br>
 			<a href="./index.html">Logout</a>
 		</div>
 
 	</body>
-
+	<?php } ?>
 </html>

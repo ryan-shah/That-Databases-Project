@@ -4,13 +4,14 @@
 </head>
 <body>
 <?php
+session_start();
 //insert into orders values (uuid(), 'test', 'apples', 'incart', CURDATE(), 3, 2);
 $conn = new mysqli('rash227.netlab.uky.edu', 'root', 'root','PROJECT');
-$uname = htmlspecialchars($_POST["user"]);
-$pos = htmlspecialchars($_POST["pos"]);
+$uname = $_SESSION['username'];
+$pos = $_SESSION['position'];
 if (isset($_GET["item"])) {
-	$item = htmlspecialchars($_POST["item"]);
-	$amount = htmlspecialchars($_POST["amount"]);
+	$item = htmlspecialchars($_GET["item"]);
+	$amount = htmlspecialchars($_GET["amount"]);
 	$q = "select price, discount from merch where mid=\"".$item."\";";
 	//echo $q."<br>";
 	$result = $conn->query($q);
@@ -47,7 +48,7 @@ Your cart: <br>
 <form method=POST action=checkout.php>
 	<?php
 		echo "<input type=hidden name=user value=".$uname.">";
-		echo "<a href='./main.php'>Back to main page</a>"
+		echo "<a href='./main.php'>Back to main page</a>";
 	?>
 	<input type=submit value=Checkout>
 </form>
