@@ -1,5 +1,32 @@
-		<?php
+<?php
+include "css.php";
+if( empty($_POST["user"]) ) {
 
+?>
+<!doctype html>
+<html>
+<head>
+        <title>Login</title>
+<?php scripts(); ?>
+</head>
+<body>
+<form action="/login.php" method="post">
+Position:<br>
+<select name="position">
+        <option value="customer">Customer</option>
+        <option value="staff">Staff</option>
+</select><br>
+Username:<br>
+        <input type="text" name="user"><br>
+Password:<br>
+        <input type="password" name="pword"><br>
+<input type="submit" value="Submit">
+</form>
+</body>
+</html>
+<?php
+
+} else {
 		session_start();
 		$servername = 'rash227.netlab.uky.edu';
 		$username = 'root';
@@ -33,8 +60,8 @@ if($result->num_rows > 0) {
 	}
 } else {
 	echo "LOGIN FAILED<br>";
-	echo "go to <a href=\"/createaccount.html\">here</a> to create an account<br>";
-	echo "or <a href=/login.html>here</a> to try again";
+	echo "go to <a href=\"/createa.php\">here</a> to create an account<br>";
+	echo "or <a href=/login.php>here</a> to try again";
 }
-
+}
 ?>

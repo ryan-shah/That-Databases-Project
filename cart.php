@@ -1,6 +1,10 @@
 <html>
 <head>
 <title>Cart</title>
+<?php
+include "css.php";
+scripts();
+?>
 </head>
 <body>
 <?php
@@ -9,6 +13,7 @@ session_start();
 $conn = new mysqli('rash227.netlab.uky.edu', 'root', 'root','PROJECT');
 $uname = $_SESSION['username'];
 $pos = $_SESSION['position'];
+navbarCust($uname,$pos);
 if (isset($_GET["item"])) {
 	$item = htmlspecialchars($_GET["item"]);
 	$amount = htmlspecialchars($_GET["amount"]);
@@ -48,7 +53,7 @@ Your cart: <br>
 <form method=POST action=checkout.php>
 	<?php
 		echo "<input type=hidden name=user value=".$uname.">";
-		echo "<a href='./main.php'>Back to main page</a>";
+		echo "<input type=hidden name=pos value=".$pos.">";
 	?>
 	<input type=submit value=Checkout>
 </form>

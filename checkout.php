@@ -1,17 +1,24 @@
 <html>
 <head>
 <title>Checkout</title>
+<?php
+include "css.php";
+scripts();
+?>
 <body>
 
 <?php
+
 session_start();
 $conn = new mysqli('rash227.netlab.uky.edu', 'root', 'root','PROJECT');
 $uname = $_SESSION['username'];
+$pos = $_SESSION['position'];
+navbarCust($uname,$pos);
 $q = "select oid, mid, quantity from orders where cid=\"".$uname."\" and status=\"incart\";";
 $result = $conn->query($q);
 while ($row = $result->fetch_assoc()) {
 	$q = "select quantity from merch where mid=\"".$row["mid"]."\";";
-	echo $q."<br>";
+//	echo $q."<br>";
 	$buff = $conn->query($q);
 	$buff2 = $buff->fetch_assoc();
 	$quant = $buff2["quantity"];
@@ -27,9 +34,8 @@ while ($row = $result->fetch_assoc()) {
 	}
 }
 ?>
-<h1>checkout complete</h1>
+<h1>Checkout Successful</h1>
 <?php
-	echo "<a href=/main.php>Return to the main page</a>";
 ?>
 </body>
 </html>

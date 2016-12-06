@@ -4,18 +4,19 @@ $conn = new mysqli('rash227.netlab.uky.edu', 'root', 'root','PROJECT');
 $uname = htmlspecialchars($_GET["user"]);
 $pos = htmlspecialchars($_GET["pos"]);
 $search = htmlspecialchars($_GET["search"]);
+include "css.php";
 ?>
 <html>
 <head>
 <title>Search Results</title>
+<?php
+scripts();
+?>
 </head>
 <body>
 
 <?php
-$conn = new mysqli('rash227.netlab.uky.edu', 'root', 'root','PROJECT');
-$uname = htmlspecialchars($_GET["user"]);
-$pos = htmlspecialchars($_GET["pos"]);
-$search = htmlspecialchars($_GET["search"]);
+navbarCust($uname,$pos);
 $q = "select * from merch where mid =\"".$search."\";";
 $result = $conn->query($q);
 if($result->num_rows > 0) {
