@@ -45,8 +45,7 @@ include "css.php";
 					$update_query = "UPDATE orders SET status = 'shipped' WHERE oid='". $row["oid"]."'";
 					$update_result = $conn->query($update_query);
 				}
-				echo "<p>Orders shipped.</p><br>";
-				echo "<a href=\"./shipments.php\"> Back to shipments </a>";
+				echo "<div class=container><div class=jumbotron><h2>Orders shipped successfully.</h2></div></div>";
 			} else {
 		?>
 		<div class="container">
@@ -62,17 +61,18 @@ include "css.php";
 				$attributes = array('mid','quantity', 'cid','totalPrice');
 
 				echo "<form action=\"./shipments.php\" method=\"POST\">";
-				echo "<table style=\"border: 1px solid black; border-spacing: 5px\"";
+				echo "<table class=\"table table-striped table-hover\">";
+				echo "<thead>";
 				echo "<tr>";
 
 				foreach($attributes as $heading) {
 					echo "<th>" . $heading . "</th>";
 				}
-				echo "<th> Ship?</th>";
-				echo "</tr>";
+				echo "<th> Ship?</th>\n";
+				echo "</tr>\n</thead>\n<tbody>";
 
 				while($row = $result->fetch_assoc()){
-
+					echo "<div class=\"form-group\">";
 					echo "<tr>";
 					echo "<td>" . $row['mid'] . "</td>";
 					echo "<td>" . $row['quantity'] . "</td>";
@@ -80,11 +80,11 @@ include "css.php";
 					echo "<td>" . $row['totalPrice'] . "</td>";
 					echo "<td> <input type='checkbox' name='".$row['oid']."' value='".$row['oid']."'></td>";
 					echo "</tr>";
+					echo "</div>";
 				}
 
-				echo "</table>";
-				echo "<input type=\"submit\" value=\"Ship\" name=\"Ship_Order\">";
-
+				echo "</tbody></table>";
+				echo "<input type=\"submit\" class=\"btn btn-primary\" value=\"Ship Selected\" name=\"Ship_Order\">";
 				echo "</form>";
 				mysqli_free_result($result);
 	
