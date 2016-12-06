@@ -24,17 +24,29 @@ while ($row = $result->fetch_assoc()) {
 	$quant = $buff2["quantity"];
 	if ( $quant >= $row["quantity"] ) {
 		$q = "update merch set quantity=quantity-".$row["quantity"]." where mid=\"".$row["mid"]."\";";
-		echo $q."<br>";
+//		echo $q."<br>";
 		$conn->query($q);
 		$q = "update orders set status=\"pending\" where oid=\"".$row["oid"]."\";";
-		echo $q."<br>";
+//		echo $q."<br>";
 		$conn->query($q);
 	} else {
-		echo "there was an error with order #".$row["oid"].". It has not been removed from your cart.";
+?>
+		<div class="col-lg-10">
+		<div class="alert alert-dismissable alert-danger">
+			<button type="button" class="close" data-dismiss="alert">&times;</button>
+		<strong>Uh Oh!</strong>
+<?php
+		echo "There was an error with order #".$row["oid"].". It has not been removed from your cart.<br>";
+		echo "You may have tried to order an out of stock item."
+?>
+		</div></div>
+<?php
 	}
 }
 ?>
-<h1>Checkout Successful</h1>
+<div class="col-lg-10">
+<h1>Checkout Complete</h1>
+</div>
 <?php
 ?>
 </body>
