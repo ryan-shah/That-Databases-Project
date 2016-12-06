@@ -60,7 +60,7 @@ if($result->num_rows > 0) {
 	}
 } else {
 	echo "LOGIN FAILED<br>";
-	echo "go to <a href=\"/createa.php\">here</a> to create an account<br>";
+	echo "go to <a href=\"/create.php\">here</a> to create an account<br>";
 	echo "or <a href=/login.php>here</a> to try again";
 }
 }
