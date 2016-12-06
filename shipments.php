@@ -9,6 +9,7 @@ include "css.php";
 
 	<head>
 		<?php
+			scripts();
 			session_start();
 //			$_SESSION['position'] = 'staff';
 			$servername = "rash227.netlab.uky.edu";
@@ -18,42 +19,13 @@ include "css.php";
 			$conn = new mysqli($servername, $username, $password, 'PROJECT');
 		?>
 
-				
 		<title>Shipments</title>
-
-		<style type="text/css">
-
-			div.user_info {
-				position: absolute;
-				top: 0px;
-				right: 10px;
-				width: 100px;
-
-				text-align: right;
-				font-size: 11pt;
-			}
-
-			div.pending_shipments {
-				position: absolute;
-				top: 10%;
-				left: 5%;
-				
-				font-size: 65pt;
-				font-family: Verdana, sans-serif;
-			}
-
-			div.shipments_table {
-				position: absolute;
-				top: 15%;
-				left: 5%;
-			}
-
-		</style>
-
 	</head>
 
 	<body>
-		<?php if($_SESSION["position"] != "staff" and $_SESSION["position"] != "manager"){
+		<?php 
+		navbarStaff();
+		if($_SESSION["position"] != "staff" and $_SESSION["position"] != "manager"){
 				echo "Never should have come here!";
 			} else {
 		?>
@@ -68,21 +40,21 @@ include "css.php";
 
 				$query = "SELECT oid, mid, quantity, totalPrice FROM orders WHERE status = 'pending' AND (".$things_to_ship.");";
 				$result = $conn->query($query);
-				
 
 				while($row = $result->fetch_assoc()){
 					$update_query = "UPDATE orders SET status = 'shipped' WHERE oid='". $row["oid"]."'";
 					$update_result = $conn->query($update_query);
-					
 				}
 				echo "<p>Orders shipped.</p><br>";
 				echo "<a href=\"./shipments.php\"> Back to shipments </a>";
 			} else {
 		?>
-
-		<div class="pending_shipments">Pending Shipments</div>
-
-		<div class="shipments_table">
+		<div class="container">
+		<div class="jumbotron">
+			<h1>Pending Shipments</h1>
+		</div>
+		</div>
+		<div class="container">
 		<br><br><br>
 			<?php
 				$query = "SELECT oid, mid, quantity, cid, totalPrice FROM orders WHERE status = 'pending'";
@@ -90,7 +62,6 @@ include "css.php";
 				$attributes = array('mid','quantity', 'cid','totalPrice');
 
 				echo "<form action=\"./shipments.php\" method=\"POST\">";
-				echo "<input type=\"submit\" value=\"Ship\" name=\"Ship_Order\">";
 				echo "<table style=\"border: 1px solid black; border-spacing: 5px\"";
 				echo "<tr>";
 
@@ -112,6 +83,8 @@ include "css.php";
 				}
 
 				echo "</table>";
+				echo "<input type=\"submit\" value=\"Ship\" name=\"Ship_Order\">";
+
 				echo "</form>";
 				mysqli_free_result($result);
 	
@@ -119,13 +92,6 @@ include "css.php";
 		</div>
 
 		<?php } ?>
-
-		<div class="user_info">
-			Hello, <?php echo $_SESSION['username'];?><br>
-			<a href="./inventory.php">Inventory</a><br>
-			<a href="./index.html">Logout</a>
-		</div>
-
 	</body>
 	<?php } ?>
 </html>

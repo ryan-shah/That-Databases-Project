@@ -8,18 +8,19 @@
 			$username = "root";
 			$password = $username;
 			$conn = new mysqli($servername, $username, $password, 'PROJECT');
-
+			include "css.php";
+			scripts();
 		?>
 
 		<title>Discounts</title>
 
 	</head>
-
+	<body>
 	<?php
+		navbarStaff();
 		if($_SESSION['position'] === 'manager'){
 			if(!isset($_POST['item']) && !isset($_POST['discount'])){
 	?>
-	<body>
 		<?php
 			$query = "SELECT mid, price, discount FROM merch";
 			$result = $conn->query($query);
@@ -44,7 +45,6 @@
 			<input type='submit' method='POST'>
 		</form>
 
-	</body>
 
 	<?php	} else {
 				$query = "UPDATE merch SET discount = ".$_POST['discount']." WHERE mid='".$_POST['item']."'";
@@ -56,5 +56,5 @@
 		}	
 		else{ echo "You shouldn't be here."; }
 	?>
-
+</body>
 </html>

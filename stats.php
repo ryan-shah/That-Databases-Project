@@ -1,6 +1,7 @@
 <html>
 
 <?php
+	include "css.php";
     error_reporting(E_ALL);
 	ini_set('display_errors', 1);
 
@@ -13,12 +14,13 @@
 			$servername = "rash227.netlab.uky.edu";
 			$username = "root";
 			$password = $username;
-
 			$conn = new mysqli($servername, $username, $password, 'PROJECT');
+			scripts();
 		?>
 	</head>
 
 	<body>
+		<?php navbarStaff(); ?>
 		<p>Sales from last...<br></p>
 		<?php
 			echo "<table>";

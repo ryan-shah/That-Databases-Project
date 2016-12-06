@@ -12,6 +12,21 @@ function scripts() {
 <?php
 }
 
+function navbar() {
+?>
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href=<?php echo "/"?>>Emazon.com</a>
+    </div>
+    <ul class="nav navbar-nav navbar-right">
+	<li><a href="/create.php">Create Account</a></li>
+    </ul>
+  </div>
+</nav>
+
+<?php
+}
 function navbarCust($id, $pos) {
 ?>
 <nav class="navbar navbar-default">
@@ -29,7 +44,7 @@ function navbarCust($id, $pos) {
 <?php
 }
 
-function navbarStaff($id, $pos) {
+function navbarStaff() {
 ?>
 <nav class="navbar navbar-default">
   <div class="container-fluid">
