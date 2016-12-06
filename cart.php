@@ -28,13 +28,18 @@ if (isset($_GET["item"])) {
 	//echo "done";
 }
 ?>
-Your cart: <br>
-<table border=1>
+<div class=container>
+<div class=jumbotron>
+<h1>Your Cart</h1>
+<table class="table table-striped table-hover">
+<thead>
 <tr>
-	<th>item</th>
-	<th>quantity</th>
-	<th>price</th>
+	<th>Name</th>
+	<th>Quantity</th>
+	<th>Price</th>
 </tr>
+</thead>
+<tbody>
 <?php
 	$total = 0;
 	$q = "select mid, quantity, totalPrice from orders where cid=\"".$uname."\" and status=\"incart\";";
@@ -47,15 +52,16 @@ Your cart: <br>
 		echo "</tr>";
 		$total = $total + $row["totalPrice"];
 	}
-	echo "</table>";
-	echo "your total = $".$total;
+	echo "</tbody></table>";
+	echo "<h2>Total = $".$total."</h2>";
 ?>
 <form method=POST action=checkout.php>
 	<?php
 		echo "<input type=hidden name=user value=".$uname.">";
 		echo "<input type=hidden name=pos value=".$pos.">";
 	?>
-	<input type=submit value=Checkout>
+	<button type="submit" class="btn btn-primary">Submit</button>
 </form>
+</div></div>
 </body>
 </html>
