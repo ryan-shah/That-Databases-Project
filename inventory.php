@@ -10,46 +10,20 @@
 			$servername = "rash227.netlab.uky.edu";
 			$username = "root";
 			$password = $username;
-
+			include "css.php";
+			scripts();
 			$conn = new mysqli($servername, $username, $password, 'PROJECT');
 
 		?>
 
 		<title>Inventory</title>
 
-		<style type="text/css">
-
-			div.user_info {
-				position: absolute;
-				top: 0px;
-				right: 10px;
-				width: 100px;
-
-				text-align: right;
-				font-size: 11pt;
-			}
-
-<!-			div.inventory {
-				position: absolute;
-				top: 10%;
-				left: 5%;
-				
-				font-size: 65pt;
-				font-family: Verdana, sans-serif;
-			}
-
-			div.inventory_table {
-				position: absolute;
-				top: 15%;
-				left: 5%;
-			}
--!>
-		</style>
-
 	</head>
 
 	<body>
-		<?php if($_SESSION["position"] != "staff" and $_SESSION["position"] != "manager"){
+		<?php 
+			navbarStaff();
+			if($_SESSION["position"] != "staff" and $_SESSION["position"] != "manager"){
 				echo "Never should have come here!";
 			} else {
 		?>
@@ -105,14 +79,6 @@
 		</form>
 		<?php } ?>
 
-		<div class="user_info">
-			Hello, <?php echo $_SESSION['username']?><br>
-			<a href="./index.html">Logout</a>
-			<?php
-			if($_SESSION["position"] === "staff" or $_SESSION["position"] === "manager") {
-			echo "<a href='./shipments.php'>Shipments</a><br>";
-			}
-			?>
 		</div>
 	<?php } ?>
 	</body>

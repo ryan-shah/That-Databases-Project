@@ -52,6 +52,7 @@ function navbarStaff() {
       <a class="navbar-brand" href=<?php echo "/shipments.php" ?>>Emazon.com</a>
     </div>
     <ul class="nav navbar-nav navbar-right">
+      <li><a href="/inventory.php">Inventory</a></li>
       <li><a href=<?php echo "/discounts.php"?>>Discounts</a></li>
       <li><a href=<?php echo "/stats.php"?>>Stats</a></li>
       <li class="align-right"><a href="/">Logout</a></li>
