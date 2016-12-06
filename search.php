@@ -14,29 +14,38 @@ scripts();
 ?>
 </head>
 <body>
-
 <?php
 navbarCust($uname,$pos);
+?>
+<div class="container">
+<div class="jumbotron">
+<?php
 $q = "select * from merch where mid =\"".$search."\";";
 $result = $conn->query($q);
 if($result->num_rows > 0) {
 	$vals = $result->fetch_assoc();
-        echo "<h3>".$search."</h3><br>";
-        echo "price: ".$vals['price']."<br>";
-        echo "quantity: ".$vals['quantity']."<br>";
-	echo "discount: ".$vals['discount']."%<br>";
-	echo "<form action=\"/cart.php\" method=\"get\">";
-	echo "Desired amount: <input type=\"number\" name=\"amount\" min=1 max=".$vals['quantity']."><br>";
-        echo "<input type=\"hidden\" name=\"item\" value=".$search.">";
+        echo "<h1>".$search."</h1>";
+        echo "<h2>Normal Price: $".$vals['price']."</h2>";
+        echo "<h2>Available: ".$vals['quantity']."</h2>";
+	echo "<h2>Sale: ".$vals['discount']."%</h2>";
+	echo "<h2>Current Price: $".($vals['price']-($vals['price']*$vals['discount']))."</h2>";
+	echo "<form class=\"form-inline\" action=\"/cart.php\" method=\"get\">";
+	echo "<fieldset>\n";
+	echo "<div class=\"form-group\">";
+	echo "<label for=amount>Desired amount: </label>";
+	echo "<input class=\"form-control\" type=\"number\" id=amount name=\"amount\" min=1 max=".$vals['quantity'].">";
+        echo "</div>";
+	echo "<input type=\"hidden\" name=\"item\" value=".$search.">";
 	echo "<input type=\"hidden\" name=\"user\" value=".$uname.">";
         echo "<input type=\"hidden\" name=\"pos\" value=".$pos.">";
-        echo "<input type=\"submit\" value=\"Purchase\">";
+        echo "<button type=submit class=\"btn btn-default\">Submit</button>";
+	echo "</fieldset>";
 	echo "</form>";
 } else {
 	echo "Could not find your item.";
 }
 ?>
 
-
+</div></div>
 </body>
 </html>
