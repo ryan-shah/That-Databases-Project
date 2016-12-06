@@ -41,6 +41,6 @@ $result = $conn->query($q);
 //echo $q."<br>";
 echo "Account Created with username: ".$uname;
 echo "<br>";
-echo "You can now login <a href=/login.php>here</a>";
+echo "You can now login <a href=/>here</a>";
 }
 ?>
