@@ -38,17 +38,15 @@
 	
 			if(isset($_POST["item"]) and isset($_POST["qty"]) and isset($_POST["price"])){
 				echo "<div class=container><div class=jumbotron>";
-				echo $_POST["item"]."<br>".$_POST["qty"]."<br>";
 				$query = "SELECT mid FROM merch WHERE mid = '" . $_POST["item"] . "'" ;
 				$resp = $conn->query($query);
-				echo $resp->num_rows;
 				if($resp->num_rows != 0){
 					$query = "UPDATE merch SET quantity =" . $_POST["qty"] . ", price = ".$_POST["price"]. " WHERE mid = '".$_POST["item"]."'";
 					$conn->query($query);
 					echo "<h2>Updated item entry.</h2>";
 				}
 				else {
-					$query = "INSERT INTO merch (mid, quantity, price) VALUES ('". $_POST["item"]. "'," . $_POST["qty"]. ",".$_POST["price"].")";
+					$query = "INSERT INTO merch (mid, quantity, price, discount) VALUES ('". $_POST["item"]. "'," . $_POST["qty"]. ",".$_POST["price"].", 0)";
 					$conn->query($query);
 					echo "<h2>Added item.</h2>";
 				}
@@ -74,7 +72,7 @@
 			<div class="form-group">
                                 <label for="price" class="col-lg-2 control-label">Price</label>
                                 <div class="col-lg-10">
-				<input type="number" id=price name="price" class="form-control" placeholder="5.00">
+				<input type="number" id=price name="price" step="0.01" class="form-control" placeholder="5.00">
 			</div></div>
 			<input class="btn btn-primary"  type="submit" method="POST" value="Submit">
 		</form>
