@@ -29,17 +29,18 @@ if($result->num_rows > 0) {
         echo "<h2>Available: ".$vals['quantity']."</h2>";
 	echo "<h2>Sale: ".$vals['discount']."%</h2>";
 	echo "<h2>Current Price: $".($vals['price']-($vals['price']*$vals['discount']))."</h2>";
-	echo "<form class=\"form-inline\" action=\"/cart.php\" method=\"get\">";
+	echo "<form class=\"form-horizontal\" action=\"/cart.php\" method=\"get\">";
 	echo "<fieldset>\n";
 	echo "<div class=\"form-group\">";
-	echo "<label for=amount>Desired amount: </label>";
+	echo "<label for=amount class=\"col-lg-2 control-label\">Desired amount: </label>";
+	echo "<div class=\"col-lg-2\">";
 	echo "<input class=\"form-control\" type=\"number\" id=amount name=\"amount\" min=1 max=".$vals['quantity'].">";
         echo "</div>";
 	echo "<input type=\"hidden\" name=\"item\" value=".$search.">";
 	echo "<input type=\"hidden\" name=\"user\" value=".$uname.">";
         echo "<input type=\"hidden\" name=\"pos\" value=".$pos.">";
-        echo "<button type=submit class=\"btn btn-default\">Submit</button>";
-	echo "</fieldset>";
+        echo "<button type=submit class=\"btn btn-primary\">Add to cart</button>";
+	echo "</div></fieldset>";
 	echo "</form>";
 } else {
 	echo "Could not find your item.";
