@@ -43,6 +43,16 @@ if( empty($_POST["user"]) ) {
 </div></div>
 </form>
 </div></div>
+<div class="col-md-3"></div>
+<div class="alert alert-dismissible alert-success col-md-6">
+  <button type="button" class="close" data-dismiss="alert">&times;</button>
+<h3>Welcome Testers</h3>
+<p>you can create a customer account if you'd like, however in order to accesss staff functionality please use the following logins</p>
+<p><strong>Staff:</strong> test, test </p>
+<p><strong>Manager:</strong> manager, pass </p>
+</div>
+<div class="col-md-3"></div>
+
 </body>
 </html>
 <?php

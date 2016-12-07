@@ -21,7 +21,7 @@
 	<body>
 		<?php navbarStaff(); ?>
 		<div class=container><div class=jumbotron>
-		<h1>Sales from last...</h1>
+		<h1>Sales from the last...</h1>
 		<?php
 			if($_SESSION['position'] === 'manager'){
 				echo "<table class=\"table table-striped table-hover\"><thead>";
@@ -62,7 +62,11 @@
 				echo '</tbody></table>';
 			}
 			else {
-				echo "Go away";
+			?>
+<div class="alert alert-danger" role="alert">
+  <strong>MANAGER ACCESS ONLY</strong>
+</div>
+			<?php
 			}
 		?>
 	</div></div>

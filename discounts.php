@@ -59,7 +59,14 @@
 				//echo "<a href=./discounts.php>Back to discount page</a>";
 			  }
 		}	
-		else{ echo "You shouldn't be here."; }
+		else{
+		?>
+		<div class="alert alert-danger" role="alert">
+  <strong>MANAGER ACCESS ONLY</strong>
+</div>
+
+		<?php
+		}
 	?>
 </body>
 </html>

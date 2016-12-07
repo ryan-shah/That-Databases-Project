@@ -27,15 +27,15 @@ navbarCust($uname,$pos);
 <div class=jumbotron>
 <form class="form-horizontal" action="/search.php" method="get">
 	<fieldset>
-	<legend>What are you looking for?</legend>
+	<legend>What would you like to buy?</legend>
 	<div class="form-group">
 		<label class="col-lg-2 control-label" for="search">Search</label>
-		<div class="col-lg-10">
+		<div class="col-lg-8">
 			<input class="form-control" id="search" type="text" name="search">
 	</div></div>
 <div class="form-group">
-      <div class="col-lg-10 col-lg-offset-2">
-        <button type="submit" class="btn btn-default">Submit</button>
+      <div class="col-lg-3 col-lg-offset-2">
+        <button type="submit" class="btn btn-primary">Submit</button>
 </div></div>
 <?php
 	echo "<input type=\"hidden\" name=\"user\" value=".$uname.">";

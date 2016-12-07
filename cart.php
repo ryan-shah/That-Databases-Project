@@ -60,8 +60,34 @@ if (isset($_GET["item"])) {
 		echo "<input type=hidden name=user value=".$uname.">";
 		echo "<input type=hidden name=pos value=".$pos.">";
 	?>
-	<button type="submit" class="btn btn-primary">Submit</button>
+	<button type="submit" class="btn btn-primary">Checkout</button>
 </form>
 </div></div>
+<h2>Your Past Orders</h2>
+<table class="table table-striped table-hover">
+<thead>
+<tr>
+        <th>Name</th>
+        <th>Quantity</th>
+        <th>Status</th>
+</tr>
+</thead>
+<tbody>
+
+<?php
+$q = "select mid, quantity, status from orders where cid=\"".$uname."\" and status!=\"incart\";";
+$result = $conn->query($q);
+        while ( $row = $result->fetch_assoc() ) {
+                echo "<tr>";
+                echo "<td>".$row["mid"]."</td>";
+                echo "<td>".$row["quantity"]."</td>";
+                echo "<td>".$row["status"]."</td>";
+                echo "</tr>";
+                $total = $total + $row["totalPrice"];
+        }
+?>
+
+</tbody>
+</table>
 </body>
 </html>

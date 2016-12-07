@@ -26,7 +26,11 @@ include "css.php";
 		<?php 
 		navbarStaff();
 		if($_SESSION["position"] != "staff" and $_SESSION["position"] != "manager"){
-				echo "Never should have come here!";
+				?>
+<div class="alert alert-danger" role="alert">
+  <strong>STAFF ACCESS ONLY</strong>
+</div>
+				<?php
 			} else {
 		?>
 
