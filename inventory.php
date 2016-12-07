@@ -40,7 +40,7 @@
 					echo "<h2>Updated item entry.</h2>";
 				}
 				else {
-					$query = "INSERT INTO merch (mid, quantity, price) VALUES ('". $_POST["item"]. "'," . $_POST["qty"]. ",".$_POST["price"].")";
+					$query = "INSERT INTO merch (mid, quantity, price, discount) VALUES ('". $_POST["item"]. "'," . $_POST["qty"]. ",".$_POST["price"].", 0)";
 					$conn->query($query);
 					echo "<h2>Added item.</h2>";
 				}
