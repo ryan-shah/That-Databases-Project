@@ -31,56 +31,76 @@
 		<?php
 	
 			if(isset($_POST["item"]) and isset($_POST["qty"]) and isset($_POST["price"])){
+				echo "<div class=container><div class=jumbotron>";
 				echo $_POST["item"]."<br>".$_POST["qty"]."<br>";
-
 				$query = "SELECT mid FROM merch WHERE mid = '" . $_POST["item"] . "'" ;
 				$resp = $conn->query($query);
 				echo $resp->num_rows;
 				if($resp->num_rows != 0){
 					$query = "UPDATE merch SET quantity =" . $_POST["qty"] . ", price = ".$_POST["price"]. " WHERE mid = '".$_POST["item"]."'";
 					$conn->query($query);
-					echo "<p>Updated item entry.</p>";
+					echo "<h2>Updated item entry.</h2>";
 				}
 				else {
 					$query = "INSERT INTO merch (mid, quantity, price) VALUES ('". $_POST["item"]. "'," . $_POST["qty"]. ",".$_POST["price"].")";
 					$conn->query($query);
-					echo "<p>Added item.</p>";
+					echo "<h2>Added item.</h2>";
 				}
-					echo "<a href = './inventory.php'>Back to inventory.</a>";
+				echo "</div></div>";
 			}
 
 			else {
 
 		?>
-
-		<form method="POST">
-
+		<div class=container><div class=jumbotron>
+		<form class="form form-horizontal" method="POST">
+			<legend>Add/Update Inventory</legend>
+			<div class="form-group">
+				<label for=item class="col-lg-2 control-label">Item</label>
+				<div class="col-lg-10">
+				<input type="text" class="form-control" id=item name="item" placeholder="Item">
+			</div></div>
+			<div class="form-group">
+				<label for="qty" class="col-lg-2 control-label">Quantity</label>
+				<div class="col-lg-10">
+				<input type="number" name="qty" class="form-control" id=qty placeholder="10">
+			</div></div>
+			<div class="form-group">
+                                <label for="price" class="col-lg-2 control-label">Price</label>
+                                <div class="col-lg-10">
+				<input type="number" id=price name="price" class="form-control" placeholder="5.00">
+			</div></div>
+			<input class="btn btn-primary"  type="submit" method="POST" value="Submit">
+		</form>
+		</div></div>
+<h3>Current Inventory</h3>
 			<?php
-				$query = "SELECT mid, quantity FROM merch";
+				$query = "SELECT mid, quantity, price FROM merch";
 				$resp = $conn->query($query);
-
-				echo "<table>";
+			?>
+				<table class="table table-striped table-hover ">
+				<thead><tr>
+				<th>Item</th>
+				<th>Quantity</th>
+				<th>Price</th>
+				</tr></thead><tbody>
+			<?php
 				while($row = $resp->fetch_assoc()){
-					echo "<tr>";
+					if($row['quantity'] == 0) {
+						echo "<tr class=warning>";
+					} else {
+						echo "<tr>";
+					}
 					echo "<td>" . $row['mid'] . "</td>";
 					echo "<td>" . $row['quantity'] . "</td>";
+					echo "<td>$" . $row['price'] . "</td>";
 					echo "</tr>";
 				}
 
-				echo "</table>";
-	
-			?>
+				echo "</tbody></table>";
+			}
 
-			<div class="inventory">Inventory</div>
-			<input type="text" name="item" value="Item">
-			<input type="number" name="qty" value = "Quantity">
-			<input type="number" name="price" value = "Price">
-			<input type="submit" method="POST" value="Submit">
-		</form>
-		<?php } ?>
-
-		</div>
-	<?php } ?>
-	</body>
+		}
+?>	</body>
 
 </html>

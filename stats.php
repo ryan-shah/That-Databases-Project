@@ -23,9 +23,9 @@
 		<p>Sales from last...<br></p>
 		<?php
 			if($_SESSION['position'] === 'manager'){
-				echo "<table>";
+				echo "<table class=\"table table-striped table-hover\"><thead>";
 				echo "<th>Time</th>";
-				echo "<th>Amount</th>";
+				echo "<th>Amount</th></thead><tbody>";
 				$query = 'SELECT SUM(totalPrice) FROM orders WHERE dateMade > (curdate() - INTERVAL 1 WEEK) AND status = "shipped"';
 				$result = $conn->query($query);
 				$result = $result->fetch_row();
@@ -50,7 +50,7 @@
 				echo "<tr>";
 				echo "<td>All Time</td>";
 				echo "<td>".$result[0]."</td>";
-				echo '</table>';
+				echo '</tbody></table>';
 			}
 			else {
 				echo "Go away";

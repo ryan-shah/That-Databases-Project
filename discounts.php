@@ -20,38 +20,43 @@
 		navbarStaff();
 		if($_SESSION['position'] === 'manager'){
 			if(!isset($_POST['item']) && !isset($_POST['discount'])){
-	?>
-		<?php
 			$query = "SELECT mid, price, discount FROM merch";
 			$result = $conn->query($query);
-			echo "<table>";
+			echo "<table class=\"table table-striped table-hover\"><thead>";
 			echo "<th>Item</th>";
 			echo "<th>Price</th>";
 			echo "<th>Discount</th>";
-			echo "<th>New Price</th>";
+			echo "<th>New Price</th></thead>";
 			while($row = $result->fetch_assoc()){
-				echo "<tr>";
+				echo "<tbody><tr>";
 				echo "<td>".$row['mid']."</td>";
 				echo "<td>".$row['price']."</td>";
 				echo "<td>".$row['discount']."</td>";
 				echo "<td>".($row['price']*(1 - $row['discount']))."</td>";
-				echo "</tr>";
+				echo "</tr></tbody>";
 			}
 		?>
-
-		<form method="POST">
-			<input type='text' name='item'>
-			<input type='number' step='any' min=0 max=1  name='discount'>
-			<input type='submit' method='POST'>
+		<div class="container"><div class="jumbotron">
+		<form class="form form-inline" method="POST">
+			<legend>Set Discount</legend>
+			<div class="form-group">
+			<div class="col-lg-3">
+			<input type='text' name='item' id='item' placeholder='Item' class="form-control">
+			</div></div>
+			<div class="form-group col-lg-3">
+			<input type='number' class="form-control" step=.1 min=0 max=1 id="discount" placeholder="0" name='discount'>
+			</div>
+			<input type='submit' class="btn btn-primary" method='POST'>
 		</form>
+		</div></div>
 
 
 	<?php	} else {
 				$query = "UPDATE merch SET discount = ".$_POST['discount']." WHERE mid='".$_POST['item']."'";
-				echo $query;
+				//echo $query;
 				$result = $conn->query($query);
-				echo "Discount updated.";
-				echo "<a href=./discounts.php>Back to discount page</a>";
+				echo "<div class=container><div class=jumbotron><h2>Discount updated.</h2></div></div>";
+				//echo "<a href=./discounts.php>Back to discount page</a>";
 			  }
 		}	
 		else{ echo "You shouldn't be here."; }
