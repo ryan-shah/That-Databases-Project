@@ -44,7 +44,7 @@
 			<input type='text' name='item' id='item' placeholder='Item' class="form-control">
 			</div></div>
 			<div class="form-group col-lg-3">
-			<input type='number' class="form-control" step=.1 min=0 max=1 id="discount" placeholder="0" name='discount'>
+			<input type='number' class="form-control" step=.01 min=0 max=1 id="discount" placeholder="0" name='discount'>
 			</div>
 			<input type='submit' class="btn btn-primary" method='POST'>
 		</form>
